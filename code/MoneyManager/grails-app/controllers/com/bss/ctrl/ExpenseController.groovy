@@ -14,7 +14,6 @@ class ExpenseController {
 		String userId = session["userId"]
 		
 		UserAccounts[] accounts = UserAccounts.findAll{ user.id ==  userId && effectiveToDate == null}
-		
 		Vehicle[] vehicles = Vehicle.findAll { user.id == userId}
 		
 		LoanAndLiabilities[] loans = LoanAndLiabilities.findAll{user.id == userId && actualReturnDate == null && type == "Loan"}
@@ -221,6 +220,7 @@ class ExpenseController {
 			toDate = Date.parse("dd/MM/yyyy", strToDate)
 		}
 		
+		toDate = toDate+1
 		
 		Expenses[] expenses = Expenses.findAll {user.id == userId && createdDate >= fromDate && createdDate <= toDate}
 		

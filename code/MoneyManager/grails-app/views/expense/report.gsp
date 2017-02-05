@@ -116,6 +116,8 @@
 	</td>
 	</tr>
 	
+	<tr><td class="EMPTY_H10P"></td></tr>
+	
 	<tr><td>
 	
 		
@@ -147,13 +149,6 @@
 	</td></tr>
 	
 	<tr><td class="EMPTY_H10P"></td></tr>
-	
-	<tr>
-	<td><g:link controller="Dashboard" class="LINK_BTN">Back to dashboard</g:link></td>
-	</tr>
-
-
-		
 	
 	</table>
 	
