@@ -1,0 +1,188 @@
+/*
+* This is a manifest file that'll be compiled into application.css, which will include all the files
+* listed below.
+*
+* Any CSS file within this directory can be referenced here using a relative path.
+*
+* You're free to add application-wide styles to this file and they'll appear at the top of the
+* compiled file, but it's generally better to create a new file per style scope.
+*
+*= require main
+*= require mobile
+*= require_self
+*/
+
+.W_100{
+	width: 100%;
+}
+
+.R_ALIGN{
+	text-align: right;
+}
+
+.L_ALIGN{
+	text-align: left;
+}
+
+.EMPTY_H5P{
+	height: 5px;
+}
+
+.EMPTY_H10P{
+	height: 10px;
+}
+
+.EMPTY_H20P{
+	height: 20px;
+}
+
+.EMPTY_W10P{
+	width: 10px;
+}
+
+.EMPTY_W20P{
+	width: 20px;
+}
+
+.banner{
+	width: 100%;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 20px;
+	font-weight: bold;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.WELCOME_BANNER{
+	border-bottom: 1px solid #DFDFDF;
+}
+
+.DATA_TBL{
+	border-collapse: collapse;
+	border: 1px solid;
+	padding: 0px;	
+}
+
+.DATA_TBL_TH{
+	border: 1px solid;
+	width: 150px;
+	background-color: #DFDFDF;
+	height: 35px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.DATA_TBL_TD_STR{
+	text-align: left;
+	height: 25px;
+	border: 1px solid;
+	padding: 0px 2px;
+}
+
+.DATA_TBL_TD_NUM{
+	text-align: right;
+	height: 25px;
+	border: 1px solid;
+	padding: 0px 2px;
+}
+
+.DATA_TBL_TD_LINK{
+	text-align: center;
+	border: 1px solid;
+}
+
+.SUBMIT_BTN{
+	border: 1px solid #DFDFDF;
+	background-color: #DFDFDF;
+	padding: 5px;
+	color: #48802c;
+	font-weight: bold;
+	text-decoration: none;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-size: 12px;
+	height: 26px;
+	vertical-align: middle;
+}
+
+.LINK_BTN{
+	border: 1px solid #DFDFDF;
+	background-color: #DFDFDF;
+	padding: 5px;
+	color: #48802c;
+	font-weight: bold;
+	text-decoration: none;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-size: 12px;
+	height: 30px;
+	vertical-align: middle;
+}
+
+.SUBMIT_BTN:hover{
+	border: 1px solid #DFDFDF;
+	background-color: #FFF;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.LINK_BTN:hover{
+	border: 1px solid #DFDFDF;
+	background-color: #FFF;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.PAGE_HDR{
+	font-weight: bold;
+	font-size: 20px;
+	padding: 10px 5px;
+}
+
+.TEXT_INPUT{
+	width: 200px;
+}
+
+.SELECT_INPUT{
+	width: 211px;
+}
+
+.EMPTY_INPUT{
+	border: 1px solid #ff0000;
+}
+
+.JS_VALIDATION_ERRORS{
+	color: #ff0000;
+	font-weight: bold;
+}
+
+.LABEL_CONT{
+	width: 200px;
+}
+
+.INPUT_CONT{
+	width: 220px;
+}
+
+.RADIO_CONT{
+	width: 75px;
+}
+
+.SUCCESS_MSG{
+	font-weight: bold;
+	color: #48802c;
+	font-size: 14px; 
+}
+
+.FAILURE_MSG{
+	font-weight: bold;
+	color: #ff0000;
+	font-size: 14px;
+}
+
+.DISPLAY_HIDE{
+	display: none;
+}
+
+.DISPLAY_SHOW{
+	display: show;
+}
