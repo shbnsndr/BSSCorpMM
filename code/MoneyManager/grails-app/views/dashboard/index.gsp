@@ -106,6 +106,8 @@
 		<td> <g:link controller="Account" class="LINK_BTN">Add Account</g:link> </td>
 		<td class="EMPTY_W10P"></td>
 		<td> <g:link controller="Vehicle" class="LINK_BTN">Add Vehicle</g:link> </td>
+		<td class="EMPTY_W10P"></td>
+		<td> <g:link controller="Expense" action="getExpenseReport" class="LINK_BTN">View Expense Report</g:link> </td>
 		</tr>
 		</table>
 		

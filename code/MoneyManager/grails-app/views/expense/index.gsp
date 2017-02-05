@@ -226,7 +226,7 @@
 	<td><input class="TEXT_INPUT" type="text" name="loanPlannedReturnDate" id="loanPlannedReturnDate"></td>
 	
 	</tr>
-		
+	
 	</table>
 	</div>
 	

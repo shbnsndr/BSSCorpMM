@@ -26,7 +26,6 @@ class LoginController {
 			session["userId"] = user.id
 			session["name"] = user.name
 			redirect(controller:"Dashboard")
-			//render(view:"../dashboard/index.gsp", model:[user:user])
 		}
 		
 	}
@@ -35,4 +34,5 @@ class LoginController {
 		session.invalidate()
 		render(view:"../index.gsp")
 	}
+	
 }

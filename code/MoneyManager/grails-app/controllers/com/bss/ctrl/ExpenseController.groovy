@@ -201,8 +201,29 @@ class ExpenseController {
 			msg = "Couldn't save the expense";
 			flag = "0"
 		}
-		
 		redirect(controller:"Dashboard", params:['msg':msg,'flag':flag])
+	}
+	
+	def getExpenseReport(){
 		
+		String userId = session["userId"]
+		String strFromDate = params['fromDate']
+		String strToDate = params['toDate']
+		
+		Date fromDate = new Date()-30
+		Date toDate = new Date()
+		
+		if(strFromDate != null){
+			fromDate = Date.parse("dd/MM/yyyy", strFromDate)
+		}
+		
+		if(strToDate != null){
+			toDate = Date.parse("dd/MM/yyyy", strToDate)
+		}
+		
+		
+		Expenses[] expenses = Expenses.findAll {user.id == userId && createdDate >= fromDate && createdDate <= toDate}
+		
+		render(view:"report.gsp", model:[expenses:expenses])
 	}
 }
