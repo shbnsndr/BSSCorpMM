@@ -1,0 +1,2 @@
+# BSSCorpMM
+MoneyManagerForSelf
