@@ -19,7 +19,7 @@ hibernate {
 environments {
     development {
         dataSource {
-            dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
+            dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
             url = "jdbc:mysql://localhost:3306/bss_pda?useUnicode=yes&characterEncoding=UTF-8"
         }
     }
@@ -32,9 +32,9 @@ environments {
     production {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:mysql://569487367628e19ebf000080-fast5.rhcloud.com:36566/bss_pda?useUnicode=yes&characterEncoding=UTF-8"
-			username = "admin7paxvtz"
-			password = "YNDxLWCw5Vwf"
+            url = "jdbc:mysql://589fe5de0c1e664d7b000075-bsscorp.rhcloud.com:50201/bss_pda?useUnicode=yes&characterEncoding=UTF-8"
+			username = "adminZXXiSuP"
+			password = "UcdrrvRfC_u7"
             properties {
                // See http://grails.org/doc/latest/guide/conf.html#dataSource for documentation
                jmxEnabled = true

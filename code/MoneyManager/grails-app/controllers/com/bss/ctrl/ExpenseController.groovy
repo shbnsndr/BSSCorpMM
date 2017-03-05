@@ -83,7 +83,9 @@ class ExpenseController {
 				
 				if(lastMillage != null){
 					lastMillage.setKmAfterInflation(kmsRunBeforeInfliation)
-					double mileage = (kmsRunBeforeInfliation - lastMillage.kmBeforeInflation)/lastMillage.litresPurchased
+					double kmRun = (kmsRunBeforeInfliation - lastMillage.kmBeforeInflation)
+					double mileage = kmRun/lastMillage.litresPurchased
+					lastMillage.setKmRun(kmRun)
 					lastMillage.setMillageAchieved(mileage)
 					lastMillage.save(flush: true, failOnError: true);
 				}
@@ -225,5 +227,6 @@ class ExpenseController {
 		Expenses[] expenses = Expenses.findAll {user.id == userId && createdDate >= fromDate && createdDate <= toDate}
 		
 		render(view:"report.gsp", model:[expenses:expenses])
+		
 	}
 }
