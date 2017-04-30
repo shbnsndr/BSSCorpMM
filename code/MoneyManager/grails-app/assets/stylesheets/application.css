@@ -87,6 +87,52 @@
 	padding: 0px 2px;
 }
 
+.FOREX_DATA_TBL{
+	border-collapse: collapse;
+	border: 1px solid;
+	padding: 0px;	
+}
+
+.FOREX_DATA_TBL_TH{
+	border: 1px solid;
+	width: 80px;
+	background-color: #DFDFDF;
+	height: 35px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.FOREX_DATA_TBL_TD_STR{
+	text-align: left;
+	height: 25px;
+	border: 1px solid;
+	padding: 0px 2px;
+}
+
+.FOREX_DATA_TBL_TD_INPUT_TEXT{
+	width: 80px;
+	border: 0px;
+	padding: 0px 2px;
+	outline:none;
+}
+
+.FOREX_DATA_TBL_TD_INPUT_TEXT:focus{
+	outline: none;
+	border: 0px;
+}
+
+.FOREX_DATA_TBL_TD_INPUT_TEXT:hover{
+	outline: none;
+	border: 0px;
+}
+
+.FOREX_DATA_TBL_TD_NUM{
+	text-align: right;
+	height: 25px;
+	border: 1px solid;
+	padding: 0px 2px;
+}
+
 .DATA_TBL_TD_LINK{
 	text-align: center;
 	border: 1px solid;
@@ -142,6 +188,22 @@
 	width: 200px;
 }
 
+.TEXT_INPUT_READONLY{
+	width: 200px;
+	outline: none;
+	border: 0px;
+}
+
+.TEXT_INPUT_READONLY:focus{
+	outline: none;
+	border: 0px;
+}
+
+.TEXT_INPUT_READONLY:hover{
+	outline: none;
+	border: 0px;
+}
+
 .SELECT_INPUT{
 	width: 211px;
 }
@@ -185,4 +247,30 @@
 
 .DISPLAY_SHOW{
 	display: show;
+}
+
+.RED_TEXT{
+	color: #ff0000;
+	font-weight: bold;
+}
+
+.GREEN_TEXT{
+	color: #48802c;
+	font-weight: bold;
+}
+
+.RED_BG{
+	background-color: #ff0000;
+	color: #fff;
+	font-weight: bold;
+}
+
+.GREEN_BG{
+	background-color: #48802c;
+	color: #fff;
+	font-weight: bold;
+}
+
+.YELLOW_BG{
+	background-color: #ffff00;
 }

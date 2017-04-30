@@ -102,14 +102,20 @@
 	</tr>
 	</thead>
 	<tbody>
+	<g:set var="totExp" value="${0}"></g:set>
 	<g:each var="expense" in="${expenses }">
 	<tr>
 	<td class="DATA_TBL_TD_STR">${expense.createdDate.format('dd/MM/yyyy') }</td>
 	<td class="DATA_TBL_TD_STR">${expense.txnType }</td>
 	<td class="DATA_TBL_TD_STR">${expense.remarks }</td>
 	<td class="DATA_TBL_TD_NUM">${expense.amount }</td>
+	<g:set var="totExp" value="${totExp+expense.amount }"></g:set>
 	</tr>
 	</g:each>
+	<tr>
+	<td colspan="3" class="DATA_TBL_TD_STR">Total</td>
+	<td class="DATA_TBL_TD_NUM">${totExp }</td>
+	</tr>
 	</tbody>
 	</table>
 	

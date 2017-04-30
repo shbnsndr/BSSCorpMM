@@ -21,6 +21,8 @@ invokeTag('captureHead','sitemesh',83,[:],1)
 printHtmlPart(3)
 createTagBody(1, {->
 printHtmlPart(4)
+invokeTag('set','g',105,['var':("totExp"),'value':(0)],-1)
+printHtmlPart(3)
 for( expense in (expenses) ) {
 printHtmlPart(5)
 expressionOut.print(expense.createdDate.format('dd/MM/yyyy'))
@@ -31,21 +33,25 @@ expressionOut.print(expense.remarks)
 printHtmlPart(7)
 expressionOut.print(expense.amount)
 printHtmlPart(8)
-}
+invokeTag('set','g',112,['var':("totExp"),'value':(totExp+expense.amount)],-1)
 printHtmlPart(9)
-createClosureForHtmlPart(10, 2)
-invokeTag('link','g',121,['controller':("Dashboard"),'class':("LINK_BTN")],2)
+}
+printHtmlPart(10)
+expressionOut.print(totExp)
 printHtmlPart(11)
+createClosureForHtmlPart(12, 2)
+invokeTag('link','g',127,['controller':("Dashboard"),'class':("LINK_BTN")],2)
+printHtmlPart(13)
 })
-invokeTag('captureBody','sitemesh',129,[:],1)
-printHtmlPart(12)
+invokeTag('captureBody','sitemesh',135,[:],1)
+printHtmlPart(14)
 }
 public static final Map JSP_TAGS = new HashMap()
 protected void init() {
 	this.jspTags = JSP_TAGS
 }
 public static final String CONTENT_TYPE = 'text/html;charset=UTF-8'
-public static final long LAST_MODIFIED = 1486056241288L
+public static final long LAST_MODIFIED = 1489080541773L
 public static final String EXPRESSION_CODEC = 'html'
 public static final String STATIC_CODEC = 'none'
 public static final String OUT_CODEC = 'html'

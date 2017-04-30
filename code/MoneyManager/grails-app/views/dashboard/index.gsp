@@ -108,6 +108,7 @@
 		<td> <g:link controller="Vehicle" class="LINK_BTN">Add Vehicle</g:link> </td>
 		<td class="EMPTY_W10P"></td>
 		<td> <g:link controller="Expense" action="getExpenseReport" class="LINK_BTN">View Expense Report</g:link> </td>
+		
 		</tr>
 		</table>
 		
@@ -127,7 +128,10 @@
 		</tr>
 		</thead>
 		<tbody>
+		<g:set var="totBalance" value="${0}"></g:set>
 		<g:each var="account" in="${userAccounts }">
+		<g:set var="totBalance" value="${totBalance+account.currentBalance }"></g:set>
+		
 		<tr>
 		<td class="DATA_TBL_TD_STR">${account.accountName }</td>
 		<td class="DATA_TBL_TD_STR">${account.accountType }</td>
@@ -136,6 +140,13 @@
 		<td class="DATA_TBL_TD_LINK"><g:link controller="Account" action="getThisMonthStmt" params="[accountId:account.id ]">view</g:link></td>
 		</tr>
 		</g:each>
+		
+		<tr>
+		<td colspan="2" class="DATA_TBL_TD_STR">Total</td>
+		<td class="DATA_TBL_TD_NUM">${totBalance }</td>
+		<td colspan="2" ></td>
+		</tr>
+		
 		</tbody>
 		</table>
 		

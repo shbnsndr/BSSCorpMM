@@ -107,10 +107,27 @@
 	</tr>
 	
 	<tr>
+	<td colspan="5">
+	<table>
+	<tr>
+	
 	<td><g:link controller="Dashboard" class="LINK_BTN">Back to dashboard</g:link></td>
-	<td colspan="4">
+	<td></td>
+	<td>
 	<button type="submit" class="SUBMIT_BTN">Submit</button>
-	</td></tr>
+	</td>
+	<td></td>
+	<td>
+	<g:if test="${session.isAdmin == "Y" }">
+	<g:link controller="Expense" action="uploadReportToGoogle" class="LINK_BTN">Upload to Drive</g:link>
+	</g:if>
+	</td>
+	
+	</tr>
+	</table>
+	</td>
+	
+	</tr>
 	</table>
 	</g:form>
 	</td>
@@ -133,6 +150,9 @@
 	</tr>
 	</thead>
 	<tbody>
+	
+	<g:set var="totExp" value="${0}"></g:set>
+	
 	<g:each var="expense" in="${expenses }">
 	<tr>
 	<td class="DATA_TBL_TD_STR">${expense.createdDate.format('dd/MM/yyyy') }</td>
@@ -141,8 +161,18 @@
 	<td class="DATA_TBL_TD_STR">${expense.txnType }</td>
 	<td class="DATA_TBL_TD_STR">${expense.remarks }</td>
 	<td class="DATA_TBL_TD_NUM">${expense.amount }</td>
+	
+	<g:set var="totExp" value="${totExp+expense.amount }"></g:set>
+	
 	</tr>
 	</g:each>
+	
+	<tr>
+	<td colspan="5" class="DATA_TBL_TD_STR">Total</td>
+	<td class="DATA_TBL_TD_NUM">${totExp }</td>
+	
+	</tr>
+	
 	</tbody>
 	</table>
 	

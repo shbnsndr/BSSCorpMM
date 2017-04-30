@@ -10,6 +10,7 @@ class User {
 	String isAdmin
 	Date createdDate
 	String createdBy
+	String driveFolderId
 	
 	static belongsTo = [family: Family]
 	static hasmany = [userGroup:UserGroup, userAccount:UserAccounts, expenses:Expenses, vehicles:Vehicle, loanLiabilities:LoanAndLiabilities]

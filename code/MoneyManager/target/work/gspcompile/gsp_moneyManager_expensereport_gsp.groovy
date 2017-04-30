@@ -24,37 +24,50 @@ printHtmlPart(4)
 createTagBody(2, {->
 printHtmlPart(5)
 createClosureForHtmlPart(6, 3)
-invokeTag('link','g',110,['controller':("Dashboard"),'class':("LINK_BTN")],3)
+invokeTag('link','g',114,['controller':("Dashboard"),'class':("LINK_BTN")],3)
 printHtmlPart(7)
-})
-invokeTag('form','g',115,['controller':("Expense"),'action':("getExpenseReport")],2)
-printHtmlPart(8)
-for( expense in (expenses) ) {
-printHtmlPart(9)
-expressionOut.print(expense.createdDate.format('dd/MM/yyyy'))
-printHtmlPart(10)
-expressionOut.print(expense.userAccount.accountName)
-printHtmlPart(10)
-expressionOut.print(expense.userAccount.accountType)
-printHtmlPart(10)
-expressionOut.print(expense.txnType)
-printHtmlPart(10)
-expressionOut.print(expense.remarks)
-printHtmlPart(11)
-expressionOut.print(expense.amount)
-printHtmlPart(12)
+if(true && (session.isAdmin == "Y")) {
+printHtmlPart(3)
+createClosureForHtmlPart(8, 4)
+invokeTag('link','g',122,['controller':("Expense"),'action':("uploadReportToGoogle"),'class':("LINK_BTN")],4)
+printHtmlPart(3)
 }
-printHtmlPart(13)
+printHtmlPart(9)
 })
-invokeTag('captureBody','sitemesh',155,[:],1)
+invokeTag('form','g',132,['controller':("Expense"),'action':("getExpenseReport")],2)
+printHtmlPart(10)
+invokeTag('set','g',154,['var':("totExp"),'value':(0)],-1)
+printHtmlPart(11)
+for( expense in (expenses) ) {
+printHtmlPart(12)
+expressionOut.print(expense.createdDate.format('dd/MM/yyyy'))
+printHtmlPart(13)
+expressionOut.print(expense.userAccount.accountName)
+printHtmlPart(13)
+expressionOut.print(expense.userAccount.accountType)
+printHtmlPart(13)
+expressionOut.print(expense.txnType)
+printHtmlPart(13)
+expressionOut.print(expense.remarks)
 printHtmlPart(14)
+expressionOut.print(expense.amount)
+printHtmlPart(15)
+invokeTag('set','g',165,['var':("totExp"),'value':(totExp+expense.amount)],-1)
+printHtmlPart(16)
+}
+printHtmlPart(17)
+expressionOut.print(totExp)
+printHtmlPart(18)
+})
+invokeTag('captureBody','sitemesh',185,[:],1)
+printHtmlPart(19)
 }
 public static final Map JSP_TAGS = new HashMap()
 protected void init() {
 	this.jspTags = JSP_TAGS
 }
 public static final String CONTENT_TYPE = 'text/html;charset=UTF-8'
-public static final long LAST_MODIFIED = 1486309035721L
+public static final long LAST_MODIFIED = 1492275361658L
 public static final String EXPRESSION_CODEC = 'html'
 public static final String STATIC_CODEC = 'none'
 public static final String OUT_CODEC = 'html'

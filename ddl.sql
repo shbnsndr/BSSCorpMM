@@ -212,3 +212,43 @@ CREATE TABLE `vehicle_mileage` (
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+DROP TABLE IF EXISTS `currency_units`;
+
+create table `currency_units` (
+	`id` bigint (20),
+	`version` bigint (20),
+	`currency_desc` varchar (765),
+	`currency_unit` varchar (765)
+); 
+
+DROP TABLE IF EXISTS `currency_denominations`;
+
+create table `currency_denominations` (
+	`id` bigint (20),
+	`version` bigint (20),
+	`comments` varchar (765),
+	`currency_unit` varchar (765),
+	`denomination_unit` int (11)
+); 
+
+DROP TABLE IF EXISTS `forex_exchange_rates`;
+
+create table `forex_exchange_rates` (
+	`id` bigint (20),
+	`version` bigint (20),
+	`date` datetime ,
+	`from_currency` varchar (765),
+	`rate_per_unit` double ,
+	`to_currency` varchar (765)
+); 
+
+DROP TABLE IF EXISTS `properties`;
+
+create table `properties` (
+	`id` bigint (20),
+	`version` bigint (20),
+	`property_key` varchar (765),
+	`property_value` varchar (765)
+); 
+

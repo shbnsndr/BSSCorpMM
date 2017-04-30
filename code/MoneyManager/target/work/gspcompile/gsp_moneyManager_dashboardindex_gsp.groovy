@@ -48,7 +48,11 @@ printHtmlPart(11)
 createClosureForHtmlPart(14, 2)
 invokeTag('link','g',110,['controller':("Expense"),'action':("getExpenseReport"),'class':("LINK_BTN")],2)
 printHtmlPart(15)
+invokeTag('set','g',131,['var':("totBalance"),'value':(0)],-1)
+printHtmlPart(1)
 for( account in (userAccounts) ) {
+printHtmlPart(1)
+invokeTag('set','g',133,['var':("totBalance"),'value':(totBalance+account.currentBalance)],-1)
 printHtmlPart(16)
 expressionOut.print(account.accountName)
 printHtmlPart(17)
@@ -57,26 +61,28 @@ printHtmlPart(18)
 expressionOut.print(account.currentBalance)
 printHtmlPart(19)
 createClosureForHtmlPart(20, 3)
-invokeTag('link','g',135,['controller':("Account"),'action':("get30DayStmt"),'params':([accountId:account.id ])],3)
+invokeTag('link','g',139,['controller':("Account"),'action':("get30DayStmt"),'params':([accountId:account.id ])],3)
 printHtmlPart(19)
 createClosureForHtmlPart(20, 3)
-invokeTag('link','g',136,['controller':("Account"),'action':("getThisMonthStmt"),'params':([accountId:account.id ])],3)
+invokeTag('link','g',140,['controller':("Account"),'action':("getThisMonthStmt"),'params':([accountId:account.id ])],3)
 printHtmlPart(21)
 }
 printHtmlPart(22)
+expressionOut.print(totBalance)
+printHtmlPart(23)
 for( vehicle in (vehicles) ) {
-printHtmlPart(16)
+printHtmlPart(24)
 expressionOut.print(vehicle.VehicleNumber)
 printHtmlPart(17)
 expressionOut.print(vehicle.engineType)
 printHtmlPart(19)
 createClosureForHtmlPart(20, 3)
-invokeTag('link','g',162,['controller':("Vehicle"),'action':("getMileage"),'params':([vehicle:vehicle.id ])],3)
+invokeTag('link','g',173,['controller':("Vehicle"),'action':("getMileage"),'params':([vehicle:vehicle.id ])],3)
 printHtmlPart(21)
 }
-printHtmlPart(23)
+printHtmlPart(25)
 for( loanLiability in (loanAndLiabilities) ) {
-printHtmlPart(16)
+printHtmlPart(24)
 expressionOut.print(loanLiability.date)
 printHtmlPart(17)
 expressionOut.print(loanLiability.type)
@@ -90,17 +96,17 @@ printHtmlPart(18)
 expressionOut.print(loanLiability.plannedReturnDate.format('dd/MM/yyyy'))
 printHtmlPart(21)
 }
-printHtmlPart(24)
+printHtmlPart(26)
 })
-invokeTag('captureBody','sitemesh',202,[:],1)
-printHtmlPart(25)
+invokeTag('captureBody','sitemesh',213,[:],1)
+printHtmlPart(27)
 }
 public static final Map JSP_TAGS = new HashMap()
 protected void init() {
 	this.jspTags = JSP_TAGS
 }
 public static final String CONTENT_TYPE = 'text/html;charset=UTF-8'
-public static final long LAST_MODIFIED = 1486308960998L
+public static final long LAST_MODIFIED = 1493584834348L
 public static final String EXPRESSION_CODEC = 'html'
 public static final String STATIC_CODEC = 'none'
 public static final String OUT_CODEC = 'html'

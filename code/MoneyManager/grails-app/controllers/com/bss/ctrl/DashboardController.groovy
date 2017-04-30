@@ -1,8 +1,8 @@
 package com.bss.ctrl
 
-import com.bss.domain.LoanAndLiabilities;
+import com.bss.domain.LoanAndLiabilities
 import com.bss.domain.User
-import com.bss.domain.UserAccounts;
+import com.bss.domain.UserAccounts
 import com.bss.domain.Vehicle
 
 class DashboardController {
@@ -22,4 +22,5 @@ class DashboardController {
 		
 		render(view:"index.gsp", model:['userAccounts':accounts, 'vehicles':vehicles, 'loanAndLiabilities':loanAndLiabilities, 'msg':msg, 'msgFlag':msgFlag])
 	}
+
 }

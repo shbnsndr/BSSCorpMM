@@ -10,6 +10,7 @@
 	<classpathentry kind="src" path="grails-app/utils"/>
 	<classpathentry kind="src" path="test/integration"/>
 	<classpathentry kind="src" path="test/unit"/>
+	<classpathentry kind="src" path="resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="con" path="GROOVY_DSL_SUPPORT"/>
 	<classpathentry kind="lib" path="web-app/WEB-INF/lib/com.mysql.jdbc_5.1.5.jar"/>

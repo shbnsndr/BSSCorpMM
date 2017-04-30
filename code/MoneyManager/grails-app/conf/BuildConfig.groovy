@@ -51,6 +51,10 @@ grails.project.dependency.resolution = {
         // runtime 'mysql:mysql-connector-java:5.1.29'
         // runtime 'org.postgresql:postgresql:9.3-1101-jdbc41'
         test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
+		compile 'com.google.api-client:google-api-client:1.22.0'
+		compile 'com.google.oauth-client:google-oauth-client-jetty:1.22.0'
+		compile 'com.google.apis:google-api-services-sheets:v4-rev464-1.22.0'
+		compile 'com.google.apis:google-api-services-drive:v3-rev67-1.22.0'
     }
 
     plugins {

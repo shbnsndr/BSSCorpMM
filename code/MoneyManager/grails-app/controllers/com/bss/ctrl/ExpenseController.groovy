@@ -6,6 +6,9 @@ import com.bss.domain.User
 import com.bss.domain.UserAccounts;
 import com.bss.domain.Vehicle;
 import com.bss.domain.VehicleMileage;
+import com.bss.googleutils.GoogleSheetWrapper;
+import com.bsscorp.utils.Constants;
+import com.sun.org.apache.xpath.internal.operations.String;
 
 class ExpenseController {
 
@@ -69,7 +72,7 @@ class ExpenseController {
 					redirect(controller:"Dashboard", params:['msg':msg,'flag':flag])
 					return
 				}
-				VehicleMileage lastMillage = VehicleMileage.find {vehicle == v && kmRun == 0 }
+				VehicleMileage lastMillage = VehicleMileage.find {vehicle == v && kmRun == 0 && kmAfterInflation == 0 }
 				VehicleMileage newEntry = new VehicleMileage(vehicle:v)
 				double fuelPricePerLitre = fuelPrice.toDouble()
 				double cost = totalCost.toDouble()
@@ -107,7 +110,7 @@ class ExpenseController {
 				lal.setDescription(loanDescription)
 				lal.setFromToPerson(loanFrom)
 				lal.setAmount(expenseAmount)
-				Date returnDate = new Date().parse("dd/MM/yyyy", loanPlannedReturnDate)
+				Date returnDate = Constants.convertStringToDate(loanPlannedReturnDate, null)
 				lal.setPlannedReturnDate(returnDate)
 				res = lal.save()
 				expenseAmount = expenseAmount*-1
@@ -125,7 +128,7 @@ class ExpenseController {
 				lal.setDescription(lendedDescription)
 				lal.setFromToPerson(lendedTo)
 				lal.setAmount(expenseAmount)
-				Date returnDate = new Date().parse("dd/MM/yyyy", lendedPlannedReturnDate)
+				Date returnDate = Constants.convertStringToDate(lendedPlannedReturnDate, null)
 				lal.setPlannedReturnDate(returnDate)
 				res = lal.save()
 				
@@ -207,7 +210,7 @@ class ExpenseController {
 	
 	def getExpenseReport(){
 		
-		String userId = session["userId"]
+		long userId = session["userId"]
 		String strFromDate = params['fromDate']
 		String strToDate = params['toDate']
 		
@@ -215,11 +218,11 @@ class ExpenseController {
 		Date toDate = new Date()
 		
 		if(strFromDate != null){
-			fromDate = Date.parse("dd/MM/yyyy", strFromDate)
+			fromDate = Constants.convertStringToDate(strFromDate, null)
 		}
 		
 		if(strToDate != null){
-			toDate = Date.parse("dd/MM/yyyy", strToDate)
+			toDate = Constants.convertStringToDate(strToDate, null)
 		}
 		
 		toDate = toDate+1
@@ -228,5 +231,169 @@ class ExpenseController {
 		
 		render(view:"report.gsp", model:[expenses:expenses])
 		
+	}
+	
+	def uploadReportToGoogle(){
+		
+		String msg = "Report uploaded to Google Server"
+		String flag = "1"
+		
+		long userId = session["userId"]
+		User user = User.find { id == userId }
+		String strFromDate = params['fromDate']
+		String strToDate = params['toDate']
+		
+		Date fromDate = new Date()-30
+		Date toDate = new Date()
+		
+		if(strFromDate != null){
+			fromDate = Constants.convertStringToDate(strFromDate, null)
+		}
+		
+		if(strToDate != null){
+			toDate = Constants.convertStringToDate(strToDate, null)
+		}
+		
+		toDate = toDate+1
+		
+		Expenses[] expenses = Expenses.findAll {user.id == userId && createdDate >= fromDate && createdDate <= toDate}
+		
+		Map<String, List<List<Object>>> dataMap = new HashMap<String, List<List<Object>>>()
+		List<List<Object>> dataSheet = new ArrayList<List<Object>>()
+		List dataRow = new ArrayList<Object>()
+		
+		List<String> sheetNames = new ArrayList<String>()
+		sheetNames.add("Summary")
+		sheetNames.add("Expenses")
+//		sheetNames.add("Petrol Expenses")
+//		sheetNames.add("Loan and Lend")
+		
+		//Adding Headers for the Sheet Expenses
+		dataRow.add("Date")
+		dataRow.add("Accout")
+		dataRow.add("Accout type")
+		dataRow.add("Expense type")
+		dataRow.add("Description")
+		dataRow.add("Amount")
+		
+		dataSheet.add(dataRow)
+		
+		Map<String, Double> expenseSummary = new HashMap<String, Double>()
+
+		//Iterate and add amount to List
+		for (expense in expenses) {
+			dataRow = new ArrayList<Object>()
+			
+			dataRow.add(expense.createdDate.format(Constants.STR_DATE_FORMAT))
+			dataRow.add(expense.userAccount.accountName)
+			dataRow.add(expense.userAccount.accountType)
+			String txnType = expense.txnType
+			dataRow.add(txnType)
+			dataRow.add(expense.remarks)
+			double amount = expense.amount
+			dataRow.add(String.valueOf(amount))
+			
+			if(expenseSummary.get(txnType) == null){
+				expenseSummary.put(txnType, amount)
+			}else{
+				double sum = expenseSummary.get(txnType)+amount
+				expenseSummary.put(txnType, sum)
+			}
+			
+			dataSheet.add(dataRow)
+		}		
+		
+		dataMap.put("Expenses", dataSheet)
+		
+		dataSheet = new ArrayList<List<Object>>()
+		//Adding headers for sheet Summary
+		dataRow = new ArrayList<Object>()
+		dataRow.add("Expense Type")
+		dataRow.add("Amount")
+		dataSheet.add(dataRow)
+		
+		//Iterating and adding other data to Summary Sheet
+		for (key in expenseSummary.keySet()) {
+			dataRow = new ArrayList<Object>()
+			dataRow.add(key)
+			dataRow.add(String.valueOf(expenseSummary.get(key)))
+			dataSheet.add(dataRow)
+		}
+		
+		dataMap.put("Summary", dataSheet)
+		
+		
+		Vehicle[] vehicles = Vehicle.findAll{user.id == userId}
+		LoanAndLiabilities[] loanAndLiabilities = LoanAndLiabilities.findAll{user.id == userId && actualReturnDate == null}
+		
+		sheetNames.add("Loan and Liabilities")
+		
+		dataSheet = new ArrayList<List<Object>>()
+		//Adding headers for sheet Loan and Liabilities
+		dataRow = new ArrayList<Object>()
+		dataRow.add("Date")
+		dataRow.add("Loan or Liability")
+		dataRow.add("Description")
+		dataRow.add("From or To Person")
+		dataRow.add("Amount")
+		dataRow.add("Planned Returned Date")
+		dataSheet.add(dataRow)
+		//Adding content
+		
+		for (lal in loanAndLiabilities) {
+			dataRow = new ArrayList<Object>()
+			dataRow.add(lal.date.format(Constants.STR_DATE_FORMAT))
+			dataRow.add(lal.type)
+			dataRow.add(lal.description)
+			dataRow.add(lal.fromToPerson)
+			dataRow.add(String.valueOf(lal.amount))
+			dataRow.add(lal.plannedReturnDate.format(Constants.STR_DATE_FORMAT))
+			dataSheet.add(dataRow)
+		}
+		
+		dataMap.put("Loan and Liabilities", dataSheet)
+		
+		for (v in vehicles) {
+			VehicleMileage[] vms = VehicleMileage.findAll {vehicle == v && infliatedDate >= fromDate && infliatedDate <= toDate}
+			
+			sheetNames.add(v.VehicleNumber+" Mileage")
+			
+			dataSheet = new ArrayList<List<Object>>()
+			//Adding headers for sheet Loan and Liabilities
+			dataRow = new ArrayList<Object>()
+			dataRow.add("Date")
+			dataRow.add("Fuel type")
+			dataRow.add("Fuel Price per litre")
+			dataRow.add("Litres purchased")
+			dataRow.add("Cost")
+			dataRow.add("KM Before")
+			dataRow.add("KM After")
+			dataRow.add("KM Run")
+			dataRow.add("Mileage")
+			dataSheet.add(dataRow)
+			//Adding content
+			
+			for (vm in vms) {
+				dataRow = new ArrayList<Object>()
+				dataRow.add(vm.infliatedDate.format(Constants.STR_DATE_FORMAT))
+				dataRow.add(v.engineType)
+				dataRow.add(String.valueOf(vm.pricePerLitre.round(2)))
+				dataRow.add(String.valueOf(vm.litresPurchased.round(2)))
+				dataRow.add(String.valueOf(vm.cost))
+				dataRow.add(String.valueOf(vm.kmBeforeInflation))
+				dataRow.add(String.valueOf(vm.kmAfterInflation))
+				dataRow.add(String.valueOf(vm.kmRun))
+				dataRow.add(String.valueOf(vm.millageAchieved))
+				dataSheet.add(dataRow)
+			}
+			
+			dataMap.put(v.VehicleNumber+" Mileage", dataSheet)
+		}
+		
+		String sheetName = user.name+"_alias_"+user.loginId+" Expense Sheet "+fromDate.format(Constants.STR_DATE_FORMAT)+" "+toDate.format(Constants.STR_DATE_FORMAT);
+		
+		GoogleSheetWrapper.uploadSheet(user.driveFolderId, sheetName, dataMap, sheetNames)
+		
+		redirect(controller:"Dashboard", params:['msg':msg,'flag':flag])
 	}
 }
