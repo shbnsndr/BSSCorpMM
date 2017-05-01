@@ -193,6 +193,26 @@ function calculateNos(i){
 	}
 	
 	
+	if(forexRate == 0){
+		$("#denominationProfit_"+i).val(0);
+		var profitPerUnit = (forexRate-exchangeRate).toFixed(5);
+		$("#denominationProfitPerUnit_"+i).val(0);
+		
+		if(profitPerUnit < 0){
+			$("#denominationProfitPerUnit_"+i).addClass("RED_TEXT");
+			$("#denominationProfitPerUnit_"+i).removeClass("GREEN_TEXT");
+			$("#denominationProfit_"+i).addClass("RED_TEXT");
+			$("#denominationProfit_"+i).removeClass("GREEN_TEXT");
+		}else{
+			$("#denominationProfitPerUnit_"+i).addClass("GREEN_TEXT");
+			$("#denominationProfitPerUnit_"+i).removeClass("RED_TEXT");
+			$("#denominationProfit_"+i).addClass("GREEN_TEXT");
+			$("#denominationProfit_"+i).removeClass("RED_TEXT");
+		}
+	}
+	
+	
+	
 	var size = parseInt($("#denominationsCount").val());
 	
 	var valueTotal=0, forexValueTotal=0, onlineValueTotal=0, profitTotal=0;
@@ -257,8 +277,7 @@ function calculateNos(i){
 function isPositiveIntKey(evt)
 {
    var charCode = (evt.which) ? evt.which : evt.keyCode;
-   if (charCode != 46 && charCode > 31 
-     && (charCode < 48 || charCode > 57))
+   if (charCode > 31 && (charCode < 48 || charCode > 57))
       return false;
 
    return true;

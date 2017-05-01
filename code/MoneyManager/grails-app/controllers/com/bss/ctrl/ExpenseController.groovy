@@ -8,7 +8,6 @@ import com.bss.domain.Vehicle;
 import com.bss.domain.VehicleMileage;
 import com.bss.googleutils.GoogleSheetWrapper;
 import com.bsscorp.utils.Constants;
-import com.sun.org.apache.xpath.internal.operations.String;
 
 class ExpenseController {
 
@@ -210,7 +209,7 @@ class ExpenseController {
 	
 	def getExpenseReport(){
 		
-		long userId = session["userId"]
+		String userId = session["userId"]
 		String strFromDate = params['fromDate']
 		String strToDate = params['toDate']
 		
@@ -238,7 +237,7 @@ class ExpenseController {
 		String msg = "Report uploaded to Google Server"
 		String flag = "1"
 		
-		long userId = session["userId"]
+		String userId = session["userId"]
 		User user = User.find { id == userId }
 		String strFromDate = params['fromDate']
 		String strToDate = params['toDate']

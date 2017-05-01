@@ -25,7 +25,7 @@ class LoginController {
 			render(view:"../index.gsp")
 		}else{
 			session["userName"] = user.loginId
-			session["userId"] = user.id
+			session["userId"] = String.valueOf(user.id)
 			session["name"] = user.name
 			session["isAdmin"] = user.isAdmin
 			redirect(controller:"Dashboard")
