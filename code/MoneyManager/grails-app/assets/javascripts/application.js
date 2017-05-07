@@ -192,7 +192,7 @@ function calculateNos(i){
 		}
 	}
 	
-	
+
 	if(forexRate == 0){
 		$("#denominationProfit_"+i).val(0);
 		var profitPerUnit = (forexRate-exchangeRate).toFixed(5);

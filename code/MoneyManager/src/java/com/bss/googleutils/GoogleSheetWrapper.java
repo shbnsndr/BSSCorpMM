@@ -36,9 +36,11 @@ public class GoogleSheetWrapper {
 			"Google Sheets API Java Quickstart";
 
 	/** Directory to store user credentials for this application. */
+//	private static final java.io.File DATA_STORE_DIR = new java.io.File(
+//			".credentials/sheets.googleapis.com-java-quickstart");
 	private static final java.io.File DATA_STORE_DIR = new java.io.File(
-			System.getProperty("user.home"), ".credentials/sheets.googleapis.com-java-quickstart");
-
+			"/var/lib/openshift/589fe52c2d5271c63f000257/app-root/data/.credentials/sheets.googleapis.com-java-quickstart");
+	
 	/** Global instance of the {@link FileDataStoreFactory}. */
 	private static FileDataStoreFactory DATA_STORE_FACTORY;
 
@@ -130,7 +132,6 @@ public class GoogleSheetWrapper {
 	}
     
 	public static String uploadSheet(String folderId, String sheetName, Map<String, List<List<Object>>> dataMap, List<String> keySet) throws IOException{
-		
 		String sheetId = null;
 		
 		Sheets service = getSheetsService();

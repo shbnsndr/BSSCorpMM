@@ -45,6 +45,7 @@ class ForexController {
 				
 			}catch(Exception e){
 				msg = "Enter a Valid date in DD/MM/YYYY format in EDT time zone. From and To Currency should not be same."
+				e.printStackTrace();
 			}
 			
 		}
