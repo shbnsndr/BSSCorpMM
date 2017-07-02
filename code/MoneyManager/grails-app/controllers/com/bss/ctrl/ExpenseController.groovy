@@ -228,7 +228,7 @@ class ExpenseController {
 		
 		Expenses[] expenses = Expenses.findAll {user.id == userId && createdDate >= fromDate && createdDate <= toDate}
 		
-		render(view:"report.gsp", model:[expenses:expenses])
+		render(view:"report.gsp", model:[expenses:expenses, fromDate:strFromDate, toDate:strToDate])
 		
 	}
 	

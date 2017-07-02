@@ -1,52 +1,43 @@
 package com.bss.googleutils;
 
 
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
-import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
-import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
-import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.json.JsonFactory;
-import com.google.api.client.util.store.FileDataStoreFactory;
-import com.google.api.services.drive.Drive;
-import com.google.api.services.drive.DriveScopes;
-import com.google.api.services.drive.model.File;
-import com.google.api.services.sheets.v4.Sheets.Spreadsheets.Create;
-import com.google.api.services.sheets.v4.SheetsScopes;
-import com.google.api.services.sheets.v4.model.*;
-import com.google.api.services.sheets.v4.Sheets;
-
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
+import com.bss.domain.Properties;
+import com.bsscorp.utils.Constants;
+import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.services.drive.Drive;
+import com.google.api.services.drive.DriveScopes;
+import com.google.api.services.drive.model.File;
+import com.google.api.services.sheets.v4.Sheets;
+import com.google.api.services.sheets.v4.Sheets.Spreadsheets.Create;
+import com.google.api.services.sheets.v4.SheetsScopes;
+import com.google.api.services.sheets.v4.model.BatchUpdateValuesRequest;
+import com.google.api.services.sheets.v4.model.BatchUpdateValuesResponse;
+import com.google.api.services.sheets.v4.model.Sheet;
+import com.google.api.services.sheets.v4.model.SheetProperties;
+import com.google.api.services.sheets.v4.model.Spreadsheet;
+import com.google.api.services.sheets.v4.model.SpreadsheetProperties;
+import com.google.api.services.sheets.v4.model.ValueRange;
 
 public class GoogleSheetWrapper {
 	
-	/** Application name. */
-	private static final String APPLICATION_NAME =
-			"Google Sheets API Java Quickstart";
-
-	/** Directory to store user credentials for this application. */
-//	private static final java.io.File DATA_STORE_DIR = new java.io.File(
-//			".credentials/sheets.googleapis.com-java-quickstart");
-	private static final java.io.File DATA_STORE_DIR = new java.io.File(
-			"/var/lib/openshift/589fe52c2d5271c63f000257/app-root/data/.credentials/sheets.googleapis.com-java-quickstart");
+	private static final String APPLICATION_NAME = "Money Manager";
+	private static String credentialStore;
 	
-	/** Global instance of the {@link FileDataStoreFactory}. */
-	private static FileDataStoreFactory DATA_STORE_FACTORY;
-
 	/** Global instance of the JSON factory. */
-	private static final JsonFactory JSON_FACTORY =
-			JacksonFactory.getDefaultInstance();
+	private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 
 	/** Global instance of the HTTP transport. */
 	private static HttpTransport HTTP_TRANSPORT;
@@ -56,16 +47,14 @@ public class GoogleSheetWrapper {
 	 * If modifying these scopes, delete your previously saved credentials
 	 * at ~/.credentials/sheets.googleapis.com-java-quickstart
 	 */
-	private static final List<String> SCOPES =
-			Arrays.asList(SheetsScopes.SPREADSHEETS,DriveScopes.DRIVE);
+	private static final List<String> SCOPES = Arrays.asList(SheetsScopes.SPREADSHEETS,DriveScopes.DRIVE);
 
 	static {
 		try {
+			credentialStore = Properties.getValue(Constants.GOOGLE_DRIVE_CREDENTIAL_STORE);
 			HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-			DATA_STORE_FACTORY = new FileDataStoreFactory(DATA_STORE_DIR);
 		} catch (Throwable t) {
 			t.printStackTrace();
-			System.exit(1);
 		}
 	}
 
@@ -75,23 +64,19 @@ public class GoogleSheetWrapper {
 	 * @throws IOException
 	 */
 	public static Credential authorize() throws IOException {
-		// Load client secrets.
-		InputStream in = GoogleSheetWrapper.class.getResourceAsStream("/client_secret.json");
-		GoogleClientSecrets clientSecrets =
-				GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+		
+		Credential c1 = null;
+		
+		try {
 
-		// Build flow and trigger user authorization request.
-		GoogleAuthorizationCodeFlow flow =
-				new GoogleAuthorizationCodeFlow.Builder(
-						HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
-				.setDataStoreFactory(DATA_STORE_FACTORY)
-				.setAccessType("offline")
-				.build();
-		Credential credential = new AuthorizationCodeInstalledApp(
-				flow, new LocalServerReceiver()).authorize("user");
-		System.out.println(
-				"Credentials saved to " + DATA_STORE_DIR.getAbsolutePath());
-		return credential;
+//			c1 = GoogleCredential.fromStream(new FileInputStream("I:\\Git_Repo\\GoogleDriveIntegration-b1ad759d9ba1.json"))
+			c1 = GoogleCredential.fromStream(new FileInputStream(credentialStore)).createScoped(SCOPES);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return c1;
 	}
 
 	/**
@@ -118,12 +103,6 @@ public class GoogleSheetWrapper {
 		HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
 		JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
 
-		// TODO: Change placeholder below to generate authentication credentials. See
-		// https://developers.google.com/sheets/quickstart/java#step_3_set_up_the_sample
-		//
-		// Authorize using one of the following scopes:
-		//   "https://www.googleapis.com/auth/drive"
-		//   "https://www.googleapis.com/auth/spreadsheets"
 		Credential credential = authorize();
 
 		return new Sheets.Builder(httpTransport, jsonFactory, credential)
@@ -136,8 +115,6 @@ public class GoogleSheetWrapper {
 		
 		Sheets service = getSheetsService();
 		Drive driveService = getDriveService();
-		
-//		Set<String> keySet = dataMap.keySet();
 		
 		//Create Sheet
 		Spreadsheet value = new Spreadsheet();

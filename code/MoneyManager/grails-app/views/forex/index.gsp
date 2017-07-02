@@ -315,11 +315,12 @@ function sendRequestIVR2(){
 	
 	</tbody>
 	</table>
-
-
 	
 	</td></tr>
 	
+	<tr><td colspan="4">
+	<button type="submit" class="SUBMIT_BTN">Submit</button>
+	</td></tr>
 	
 	</table>
 	

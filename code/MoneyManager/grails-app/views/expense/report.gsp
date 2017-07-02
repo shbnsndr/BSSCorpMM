@@ -97,12 +97,12 @@
 	<tr><td colspan="5">Filter Report using from date and to date</td></tr>
 	<tr>
 	<td>From Date(DD/MM/yyyy)*</td><td></td>
-	<td><input class="TEXT_INPUT" type="text" name="fromDate" id="fromDate"> </td><td></td>
+	<td><input class="TEXT_INPUT" type="text" name="fromDate" id="fromDate" value="${fromDate }"> </td><td></td>
 	</tr>
 	
 	<tr>
 	<td>To Date(DD/MM/yyyy)*</td><td></td>
-	<td><input class="TEXT_INPUT" type="text" name="toDate" id="toDate"> </td><td></td>
+	<td><input class="TEXT_INPUT" type="text" name="toDate" id="toDate" value="${toDate }"> </td><td></td>
 	<td></td>
 	</tr>
 	
@@ -119,7 +119,8 @@
 	<td></td>
 	<td>
 	<g:if test="${session.isAdmin == "Y" }">
-	<g:link controller="Expense" action="uploadReportToGoogle" class="LINK_BTN">Upload to Drive</g:link>
+	<g:link controller="Expense" action="uploadReportToGoogle" class="LINK_BTN"
+	params="${[fromDate:fromDate, toDate:toDate ]}">Upload to Drive</g:link>
 	</g:if>
 	</td>
 	

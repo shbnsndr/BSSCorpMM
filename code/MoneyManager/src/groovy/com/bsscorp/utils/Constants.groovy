@@ -5,13 +5,14 @@ import java.text.SimpleDateFormat
 
 class Constants {
 
-	static final String OPEN_EXCHANGE_RATE_APP_ID = "OPEN_EXCHANGE_RATE_APP_ID"
-	static final String STR_DATE_FORMAT = "dd/MM/yyyy"
-	static final String STR_DATE_FORMAT_YYYY_MM_DD = "yyyy-MM-dd"
-	static final String USD = "USD"
-	static final String INR = "INR"
-	static DateFormat DATE_FORMAT = new SimpleDateFormat(STR_DATE_FORMAT)
-	static final String OPEN_EXCHANGE_RATE_URL = "https://openexchangerates.org/api/historical/" 
+	public static final String OPEN_EXCHANGE_RATE_APP_ID = "OPEN_EXCHANGE_RATE_APP_ID"
+	public static final String GOOGLE_DRIVE_CREDENTIAL_STORE = "GOOGLE_DRIVE_CREDENTIAL_STORE"
+	public static final String STR_DATE_FORMAT = "dd/MM/yyyy"
+	public static final String STR_DATE_FORMAT_YYYY_MM_DD = "yyyy-MM-dd"
+	public static final String USD = "USD"
+	public static final String INR = "INR"
+	public static DateFormat DATE_FORMAT = new SimpleDateFormat(STR_DATE_FORMAT)
+	public static final String OPEN_EXCHANGE_RATE_URL = "https://openexchangerates.org/api/historical/" 
 	
 	public static Date convertDateToString(String customFormat){
 		
