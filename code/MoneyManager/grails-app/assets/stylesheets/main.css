@@ -597,3 +597,11 @@ a.skip {
 	position: absolute;
 	left: -9999px;
 }
+
+
+.company_name {
+    font-style: italic;
+    font-size: 45px;
+    font-family: Aguafina Script arial;
+    color: rgb(8, 59, 102);
+}

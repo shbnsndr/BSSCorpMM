@@ -9,7 +9,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<title>BSS Corp - Money Manager</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="shortcut icon" href="${assetPath(src: 'favicon.ico')}" type="image/x-icon">
+		<link rel="shortcut icon" href="${assetPath(src: 'bss.png')}" type="image/x-icon">
 		<link rel="apple-touch-icon" href="${assetPath(src: 'apple-touch-icon.png')}">
 		<link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'apple-touch-icon-retina.png')}">
   		<asset:stylesheet src="application.css"/>
@@ -17,7 +17,13 @@
 		<g:layoutHead/>
 	</head>
 	<body>
-		<div id="grailsLogo" role="banner" class="banner">BSS Corp - Money Manager</div>
+		<div id="grailsLogo" role="banner" class="banner">
+		<table><tr>
+		<td><img alt="logo" src="${assetPath(src: 'bss.png') }" height="100px" width="100px"></td>
+		<td class="company_name">BSS Corp - Money Manager</td>
+		<td><img alt="" src="${assetPath(src: 'gold-coins-and-bars.png') }" height="100px" width="250px"></td>
+		</tr></table>
+		</div>
 		<table class="W_100 WELCOME_BANNER">
 		<tr><td class="L_ALIGN">
 		<table><tr><td>Hi</td><td>${session.name }</td><td></table>

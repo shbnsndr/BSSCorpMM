@@ -26,7 +26,7 @@ invokeTag('wrapTitleTag','sitemesh',10,[:],2)
 printHtmlPart(1)
 invokeTag('captureMeta','sitemesh',11,['gsp_sm_xmlClosingForEmptyTag':(""),'name':("viewport"),'content':("width=device-width, initial-scale=1.0")],-1)
 printHtmlPart(3)
-expressionOut.print(assetPath(src: 'favicon.ico'))
+expressionOut.print(assetPath(src: 'bss.png'))
 printHtmlPart(4)
 expressionOut.print(assetPath(src: 'apple-touch-icon.png'))
 printHtmlPart(5)
@@ -43,25 +43,27 @@ invokeTag('captureHead','sitemesh',18,[:],1)
 printHtmlPart(7)
 createTagBody(1, {->
 printHtmlPart(8)
-expressionOut.print(session.name)
+expressionOut.print(assetPath(src: 'bss.png'))
 printHtmlPart(9)
-createClosureForHtmlPart(10, 2)
-invokeTag('link','g',28,['controller':("Login"),'action':("logout")],2)
-printHtmlPart(11)
-invokeTag('layoutBody','g',33,[:],-1)
+expressionOut.print(session.name)
+printHtmlPart(10)
+createClosureForHtmlPart(11, 2)
+invokeTag('link','g',33,['controller':("Login"),'action':("logout")],2)
 printHtmlPart(12)
-invokeTag('message','g',35,['code':("spinner.alt"),'default':("Loading&hellip;")],-1)
+invokeTag('layoutBody','g',38,[:],-1)
 printHtmlPart(13)
-})
-invokeTag('captureBody','sitemesh',36,[:],1)
+invokeTag('message','g',40,['code':("spinner.alt"),'default':("Loading&hellip;")],-1)
 printHtmlPart(14)
+})
+invokeTag('captureBody','sitemesh',41,[:],1)
+printHtmlPart(15)
 }
 public static final Map JSP_TAGS = new HashMap()
 protected void init() {
 	this.jspTags = JSP_TAGS
 }
 public static final String CONTENT_TYPE = 'text/html;charset=UTF-8'
-public static final long LAST_MODIFIED = 1485161656660L
+public static final long LAST_MODIFIED = 1499538988210L
 public static final String EXPRESSION_CODEC = 'html'
 public static final String STATIC_CODEC = 'none'
 public static final String OUT_CODEC = 'html'
